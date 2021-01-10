@@ -7,18 +7,15 @@ import time
 
 from .repository import Repo
 
-# PATH = '/usr/local/bin/chromedriver'
-list = []
+
 
 options = Options()
 
 options.add_argument('--headless')
 options.add_argument('--disable-gpu')
 
-driver = webdriver.Firefox(options=options)
 
-
-def login():
+def login(driver):
 
     driver.get('https://www.instagram.com/accounts/login/')
 
@@ -37,9 +34,14 @@ def login():
     time.sleep(10)
 
 
-def start_bot():
+def start_bot(title):
 
-    login()
+    list = []
+
+    driver = webdriver.Firefox(options=options)
+
+    login(driver=driver)
+
 
     driver.get('https://www.instagram.com/temirchiniz/')
 
@@ -51,7 +53,6 @@ def start_bot():
     time.sleep(10)
 
     try:
-        wait = WebDriverWait(driver, 10)
         main = driver.find_element_by_class_name('isgrP')
         scroll = 0
         while scroll < 1:
@@ -73,6 +74,8 @@ def start_bot():
         print('error happened 2')
         pass
 
-    Repo().write_file(list)
-
     driver.quit()
+
+    Repo().write_file(list, title)
+
+    

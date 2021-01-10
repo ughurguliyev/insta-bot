@@ -1,5 +1,4 @@
 from django.db import models
-from treebeard.mp_tree import MP_Node
 
 # Create your models here.
 
@@ -12,7 +11,11 @@ class File(models.Model):
         verbose_name_plural = 'Files'
     
     def __str__(self):
-        return f'Search - {self.pk}'
+        return f'File url - {self.default_user_img}'
+    
+    @property
+    def get_file_url(self):
+        return self.default_user_img
 
 
 class Search(models.Model):
@@ -20,6 +23,7 @@ class Search(models.Model):
     default_img_file = models.ForeignKey(File, on_delete=models.CASCADE, blank=True, null=True)
     username = models.CharField(max_length=200, verbose_name='Username', null=True)
     note = models.TextField(verbose_name='Note', null=True, blank=True)
+    is_finished = models.BooleanField(verbose_name='Finished', null=True, default=False)
     
     class Meta:
         verbose_name = 'Search'

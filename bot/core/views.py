@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import UserLogInForm, SearchForm
 from .actions import CreateSearch
+from .models import Search
 
 # Create your views here.
 
@@ -19,6 +20,13 @@ class dashboardPageView(LoginRequiredMixin, TemplateView):
     login_url = 'login/'
     template_name = 'dashboard/dashboard.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = {
+            'table_infos': Search.objects.all()
+        }
+
+        return context
 
 
 class loginPageView(FormView):

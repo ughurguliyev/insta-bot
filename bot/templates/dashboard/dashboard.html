@@ -2,7 +2,7 @@
 {% load static %}
 
   {% block content %}
-  <body>
+  <body >
     <div class="container-scroller">
       <!-- partial:../../partials/_navbar.html -->
       <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -124,12 +124,61 @@
         </nav>
         <!-- partial -->
         <div class="main-panel">
-          <div class="content-wrapper"> </div>
-          <!-- content-wrapper ends -->
-          <!-- partial:../../partials/_footer.html -->
-          <!-- <footer class="footer">
-          </footer> -->
-          <!-- partial -->
+          <div class="content-wrapper" style='padding: 5rem'> 
+            <div class="card" >
+              <div class="card-body">
+                <h4 class="card-title">Bütün Axtarışlar</h4>
+                <!-- <p class="card-description">  </p> -->
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Axtarış adı</th>
+                      <th>Yükləmə link</th>
+                      <th>Yaradıldı</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for detail in table_infos %}
+                      <tr>
+                        <td>{{ detail.title }}</td>
+                        <td><a href="{% get_media_prefix %}{{ detail.default_img_file.get_file_url }}" download> Yüklə </a></td>
+                        <td>22 Dekabr 2020</td>
+                        <td>
+                          {% if detail.is_finished %}
+                            <label class="badge badge-success">Bitib</label>
+                          {% else %}
+                            <label class="badge badge-warning">Başlayıb</label>
+                          {% endif %}
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    <!-- <tr>
+                      <td>53275531</td>
+                      <td>12 May 2017</td>
+                      <td>
+                        <label class="badge badge-danger">Başlamayıb</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>53275531</td>
+                      <td>12 May 2017</td>
+                      <td>
+                        <label class="badge badge-warning">Başlayıb</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>53275531</td>
+                      <td>12 May 2017</td>
+                      <td>
+                        <label class="badge badge-success">Bitib</label>
+                      </td>
+                    </tr> -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
         <!-- main-panel ends -->
       </div>

@@ -2,6 +2,7 @@ from stories import story, arguments, Success, Failure, Result
 
 from .entities import SearchEntity
 from .repository import Repo
+from .tasks import create_user_list
 
 class CreateSearch:
 
@@ -11,6 +12,7 @@ class CreateSearch:
         I.validate_input
         I.create_entity
         I.load_data
+        I.add_task
         I.done
     
     def validate_input(self, ctx):
@@ -28,6 +30,10 @@ class CreateSearch:
         ctx.result = Repo().create_search(
             payload = ctx.entity
         )
+        return Success()
+    
+    def add_task(self, ctx):
+        create_user_list.delay(instance=ctx.result.title)
         return Success()
     
     def done(self, ctx):
