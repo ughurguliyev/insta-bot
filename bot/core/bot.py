@@ -1,3 +1,4 @@
+import os
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
@@ -23,8 +24,8 @@ def login(driver):
 
     username_input = driver.find_element_by_name('username')
     password_input = driver.find_element_by_name('password')
-    username_input.send_keys('seleniumbotpy')
-    password_input.send_keys('Glyv3791@@')
+    username_input.send_keys(os.getenv('INSTAGRAM_USERNAME'))
+    password_input.send_keys(os.getenv('INSTAGRAM_PASSWORD'))
 
     time.sleep(5)
 
